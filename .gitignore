@@ -1,0 +1,7 @@
+node_modules/
+.next/
+out/
+.env*
+!.env.example
+*.tsbuildinfo
+PRD_OUR_LITTLE_PLACE.md
