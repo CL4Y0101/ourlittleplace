@@ -296,3 +296,13 @@ button { font: inherit; }
   .text-reveal [aria-hidden="true"] { opacity: 1 !important; filter: none !important; transform: none !important; }
   .photo-visual { opacity: 1 !important; clip-path: none !important; }
 }
+
+.admin-page { min-height: 65vh; display: grid; place-items: center; padding-top: 70px; padding-bottom: 90px; }
+.admin-panel { width: min(100%, 460px); }
+.admin-panel h1 { font-family: var(--font-display); font-size: clamp(58px, 8vw, 90px); font-weight: 400; letter-spacing: -.05em; margin: 14px 0 35px; }
+.admin-panel p { line-height: 1.8; }
+.admin-form { display: grid; gap: 20px; }
+.admin-form label { display: grid; gap: 8px; font-size: 12px; }
+.admin-form input { width: 100%; min-height: 46px; padding: 10px 12px; background: var(--white); border: 1px solid var(--border); color: var(--ink); font: inherit; }
+.admin-form button, .admin-button { min-height: 46px; padding: 10px 24px; background: var(--ink); color: var(--white); border: 0; cursor: pointer; }
+.admin-form button:disabled, .admin-button:disabled { opacity: .55; cursor: wait; }

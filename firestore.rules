@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return signedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.active == true;
+    }
+    function hasPublishedFlag() { return request.resource.data.published is bool; }
+    function hasOrder() { return request.resource.data.order is number; }
+
+    match /admins/{uid} {
+      allow read: if isAdmin();
+      // Provision and revoke admins in Firebase Console or trusted server tooling only.
+      allow write: if false;
+    }
+
+    match /settings/{id} {
+      allow get: if id == 'site' || isAdmin();
+      allow list: if isAdmin();
+      allow create, update: if isAdmin() && (id != 'site' ||
+        request.resource.data.keys().hasOnly([
+          'siteTitle', 'description', 'heroLine', 'intro', 'heroPhotoId',
+          'rightNow', 'updatedAt'
+        ]));
+      allow delete: if isAdmin();
+    }
+
+    match /photos/{id} {
+      allow read: if isAdmin() || resource.data.published == true;
+      allow create, update: if isAdmin() && hasPublishedFlag() && hasOrder();
+      allow delete: if isAdmin();
+    }
+
+    match /memories/{id} {
+      allow read: if isAdmin() || resource.data.status == 'published';
+      allow create, update: if isAdmin() &&
+        request.resource.data.status in ['draft', 'published'] && hasOrder();
+      allow delete: if isAdmin();
+    }
+
+    match /timeline/{id} {
+      allow read: if isAdmin() || resource.data.published == true;
+      allow create, update: if isAdmin() && hasPublishedFlag() && hasOrder();
+      allow delete: if isAdmin();
+    }
+
+    match /letters/{id} {
+      // Public clients can fetch one unlocked letter. Public list queries are denied
+      // because a query cannot prove that every optional unlockDate is in the past.
+      allow get: if isAdmin() || (resource.data.published == true &&
+        (!('unlockDate' in resource.data) || resource.data.unlockDate <= request.time));
+      allow list: if isAdmin();
+      allow create, update: if isAdmin() && hasPublishedFlag() && hasOrder();
+      allow delete: if isAdmin();
+    }
+
+    match /loveThings/{id} {
+      allow read: if isAdmin() || resource.data.published == true;
+      allow create, update: if isAdmin() && hasPublishedFlag() && hasOrder();
+      allow delete: if isAdmin();
+    }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}

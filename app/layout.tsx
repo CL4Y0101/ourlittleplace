@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Caveat, Cormorant_Garamond, Geist } from "next/font/google";
 import { PaperTransition, PaperLink } from "@/components/motion/PaperTransition";
-import { site } from "@/lib/mock/site";
 import "./globals.css";
 
 const display = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-display", display: "swap" });
@@ -9,9 +8,9 @@ const sans = Geist({ subsets: ["latin"], variable: "--font-sans", display: "swap
 const handwriting = Caveat({ subsets: ["latin"], variable: "--font-handwriting", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
-  title: site.title,
-  description: site.description,
+  metadataBase: new URL(process.env.SITE_URL || "http://localhost:3000"),
+  title: "Our Little Place",
+  description: "A little place on the internet for moments worth keeping.",
   robots: { index: false, follow: false },
 };
 
