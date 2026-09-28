@@ -50,7 +50,8 @@ export function Intro() {
   }
 
   return <>
-    {mode !== "closed" && <motion.div className="intro-overlay" role={mode === "open" ? "dialog" : undefined} aria-modal={mode === "open" ? "true" : undefined} aria-label="Welcome" initial={false} animate={{ opacity: mode === "leaving" ? 0 : 1, y: mode === "leaving" && !reducedMotion ? -25 : 0 }} transition={{ duration: reducedMotion ? 0 : motionTokens.duration.base, ease: motionTokens.ease.standard }}>
+    {mode !== "closed" && <motion.div className="intro-overlay" role={mode === "open" ? "dialog" : mode === "checking" ? "status" : undefined} aria-modal={mode === "open" ? "true" : undefined} aria-label={mode === "open" ? "Welcome" : undefined} initial={false} animate={{ opacity: mode === "leaving" ? 0 : 1, y: mode === "leaving" && !reducedMotion ? -25 : 0 }} transition={{ duration: reducedMotion ? 0 : motionTokens.duration.base, ease: motionTokens.ease.standard }}>
+      {mode === "checking" && <div className="intro-boot"><span className="brand">our little place<span className="brand-mark">.</span></span><span className="eyebrow">OPENING</span></div>}
       {mode === "open" && <><span className="eyebrow">{site.intro.eyebrow}</span><h2><span>{site.intro.line1}</span><span>{site.intro.line2}</span><span>{site.intro.line3}</span></h2><button ref={enterRef} type="button" onClick={enter}>enter this place ↗</button></>}
     </motion.div>}
     {mode === "closed" && <button className="intro-replay" type="button" onClick={() => { window.scrollTo(0, 0); setReplay(true); }}>replay intro</button>}

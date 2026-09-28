@@ -22,12 +22,15 @@ export function TextReveal({ children, className, duration = .65, delay = 0, sta
   const words = children.split(/(\s+)/);
   let wordIndex = 0;
   return (
-    <span className={`text-reveal ${className ?? ""}`} role="text" aria-label={children}>
-      {words.map((part, index) => {
-        if (/^\s+$/.test(part)) return <span key={index} aria-hidden="true">{part}</span>;
-        const order = wordIndex++;
-        return <motion.span key={index} aria-hidden="true" style={{ display: "inline-block" }} initial={{ opacity: 0, y: yOffset, filter: `blur(${blur}px)` }} whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }} viewport={{ once, amount: .6 }} transition={{ duration, delay: delay + order * stagger, ease: motionTokens.ease.standard }}>{part}</motion.span>;
-      })}
+    <span className={`text-reveal ${className ?? ""}`}>
+      <span className="sr-only">{children}</span>
+      <span aria-hidden="true">
+        {words.map((part, index) => {
+          if (/^\s+$/.test(part)) return <span key={index} aria-hidden="true">{part}</span>;
+          const order = wordIndex++;
+          return <motion.span key={index} aria-hidden="true" style={{ display: "inline-block" }} initial={{ opacity: 0, y: yOffset, filter: `blur(${blur}px)` }} whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }} viewport={{ once, amount: .6 }} transition={{ duration, delay: delay + order * stagger, ease: motionTokens.ease.standard }}>{part}</motion.span>;
+        })}
+      </span>
     </span>
   );
 }

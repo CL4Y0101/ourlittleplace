@@ -1,6 +1,6 @@
 # Our Little Place
 
-Frontend prototype for a personal editorial scrapbook. This repository currently implements phases 1–3 of the project brief in `PRD_OUR_LITTLE_PLACE.md`.
+Frontend prototype for a personal editorial scrapbook. This repository currently implements phases 1–3 of the project brief in [`docs/PRD_OUR_LITTLE_PLACE.md`](docs/PRD_OUR_LITTLE_PLACE.md).
 
 The prototype sends `noindex` metadata and disallows crawlers until real content and site access settings are decided.
 Before sharing a deployed site, set `SITE_URL` to its public origin so the Open Graph image URL resolves correctly.

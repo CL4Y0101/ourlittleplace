@@ -165,6 +165,7 @@ button { font: inherit; }
 .ending .handwriting { color: var(--brown); transform: rotate(-6deg); }
 .intro-overlay { position: fixed; inset: 0; z-index: 70; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--paper); text-align: center; padding: 24px; }
 .intro-overlay:before { content: ""; position: absolute; inset: 18px; border: 1px solid var(--border); pointer-events: none; }
+.intro-boot { display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .intro-overlay h2 { margin: 26px 0 36px; font-family: var(--font-display); font-weight: 400; font-size: clamp(58px, 8.3vw, 120px); letter-spacing: -.06em; line-height: .88; }
 .intro-overlay h2 span { display: block; }
 .intro-overlay button { min-width: 145px; min-height: 50px; background: var(--ink); color: var(--white); border: 0; cursor: pointer; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }

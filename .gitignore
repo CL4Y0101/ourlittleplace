@@ -4,4 +4,4 @@ out/
 .env*
 !.env.example
 *.tsbuildinfo
-PRD_OUR_LITTLE_PLACE.md
+/PRD_OUR_LITTLE_PLACE.md
